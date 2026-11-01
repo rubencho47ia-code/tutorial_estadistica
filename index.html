@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Moda, mediana y media</title>
+<style>
+:root{--g:#1d6b5a;--m:#e0f0ea;--y:#ffe27a;--ink:#1c2b27;--bad:#b3392f;--ok:#1d7a4a;--line:#c9dcd5}
+*{box-sizing:border-box}
+body{margin:0;font:17px/1.6 "Trebuchet MS","Segoe UI",sans-serif;color:var(--ink);background:#f7fbf9}
+h1,h2,h3{font-family:Georgia,serif;line-height:1.2;color:var(--g)}
+h1{color:#fff;font-size:2rem;margin:0 0 6px}
+header{background:var(--g);color:#fff;padding:22px 16px}
+.w{max-width:860px;margin:auto}
+header p{margin:0 0 12px;opacity:.9}
+label{font-weight:bold}
+input[type=text]{font:inherit;padding:8px 10px;border:2px solid var(--line);border-radius:6px}
+header input{width:min(100%,340px);margin-left:6px}
+nav{position:sticky;top:0;background:#fff;border-bottom:2px solid var(--line);z-index:5}
+nav .w{display:flex;flex-wrap:wrap;gap:4px;padding:6px 8px}
+nav button{font:inherit;border:0;background:none;padding:8px 12px;border-radius:6px;cursor:pointer;color:var(--ink)}
+nav button.on{background:var(--g);color:#fff}
+main{padding:20px 16px 60px}
+section[hidden]{display:none}
+button:focus-visible,input:focus-visible{outline:3px solid #f0a500;outline-offset:2px}
+.btn{font:inherit;background:var(--g);color:#fff;border:0;border-radius:6px;padding:9px 16px;cursor:pointer}
+.btn.alt{background:#fff;color:var(--g);border:2px solid var(--g)}
+table{border-collapse:collapse;width:100%;margin:10px 0;background:#fff}
+th{background:var(--g);color:#fff}
+th,td{border:1px solid var(--line);padding:6px 10px;text-align:center}
+td:first-child,th:first-child{text-align:left}
+tr.hl td{background:var(--y);font-weight:bold}
+.box{background:var(--m);border-left:6px solid var(--g);padding:10px 16px;border-radius:0 8px 8px 0;margin:14px 0}
+.tip{background:#fff6cf;border-left-color:#e0a800}
+ol li,ul li{margin:6px 0}
+.q{background:#fff;border:1px solid var(--line);border-radius:8px;padding:12px 16px;margin:12px 0}
+.q legend{font-weight:bold;padding:0 4px}
+.q label{display:block;font-weight:normal;padding:3px 0;cursor:pointer}
+.q input[type=text]{width:140px}
+.fb{margin-left:10px;font-weight:bold}
+.fb.ok{color:var(--ok)}.fb.no{color:var(--bad)}
+.hint{color:#555;font-size:.95rem;margin:6px 0 0}
+.bar{background:#e4e9e7;border-radius:6px;height:14px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--g)}
+.big{font:bold 3.2rem Georgia,serif;color:var(--g)}
+.step{display:none}.step.show{display:list-item}
+@media print{header input,nav,.btn{display:none}}
+</style></head><body>
+<header><div class="w">
+<h1>Moda, mediana y media</h1>
+<p>Aprende a llenar una tabla de frecuencias y a sacar moda, mediana y media, paso a paso y sin afán.</p>
+<label for="nombre">Mi nombre:</label><input type="text" id="nombre" placeholder="Escribe tu nombre aquí" autocomplete="off">
+</div></header>
+<nav><div class="w" id="nav"></div></nav>
+<main><div class="w">
+
+<section id="teoria">
+<h2>Teoría</h2>
+<p>Una encuesta junta muchas respuestas. Para no leerlas todas, la estadística las resume con unas pocas <b>medidas</b>. Hoy veremos tres: la <b>moda</b>, la <b>mediana</b> y la <b>media</b>.</p>
+
+<h3>1. Cómo leer la tabla</h3>
+<table><tr><th>Categoría</th><th>fi</th><th>Fi</th><th>hi</th><th>Hi</th><th>%</th></tr>
+<tr class="hl"><td>Mujer</td><td>29</td><td>29</td><td>0,56</td><td>0,56</td><td>56 %</td></tr>
+<tr><td>Hombre</td><td>19</td><td>48</td><td>0,37</td><td>0,92</td><td>37 %</td></tr>
+<tr><td>Prefiero no decirlo</td><td>4</td><td>52</td><td>0,08</td><td>1,00</td><td>8 %</td></tr>
+<tr><td><b>Total</b></td><td><b>52</b></td><td></td><td><b>1,00</b></td><td></td><td><b>100 %</b></td></tr></table>
+<ul>
+<li><b>fi</b> (frecuencia): cuántas personas eligieron esa opción. 29 personas dijeron “Mujer”.</li>
+<li><b>Fi</b> (acumulada): va sumando las fi de arriba hacia abajo: 29, luego 29 + 19 = 48, luego 48 + 4 = 52.</li>
+<li><b>hi</b>: la parte del total. Se halla dividiendo: 29 ÷ 52 = 0,56.</li>
+<li><b>%</b>: es hi multiplicado por 100. 0,56 × 100 = 56 %.</li>
+<li>El <b>total</b> (52) es la suma de todas las fi: 29 + 19 + 4.</li>
+</ul>
+
+<h3>Cómo se llena cada columna, paso a paso</h3>
+<p>Ejemplo: 20 estudiantes eligieron su fruta favorita. Manzana 10, Pera 6 y Uva 4.</p>
+<table><tr><th>Fruta</th><th>fi</th><th>Fi</th><th>hi</th><th>Hi</th><th>%</th></tr>
+<tr><td>Manzana</td><td>10</td><td>10</td><td>0,50</td><td>0,50</td><td>50 %</td></tr>
+<tr><td>Pera</td><td>6</td><td>16</td><td>0,30</td><td>0,80</td><td>30 %</td></tr>
+<tr><td>Uva</td><td>4</td><td>20</td><td>0,20</td><td>1,00</td><td>20 %</td></tr>
+<tr><td><b>Total</b></td><td><b>20</b></td><td></td><td><b>1,00</b></td><td></td><td><b>100 %</b></td></tr></table>
+<ol>
+<li><b>Frecuencia absoluta (fi):</b> cuenta cuántas veces aparece cada opción. El total es la suma de todas las fi: 10 + 6 + 4 = 20.</li>
+<li><b>Frecuencia acumulada (Fi):</b> va sumando las fi hacia abajo. Manzana: 10. Pera: 10 + 6 = 16. Uva: 16 + 4 = 20.</li>
+<li><b>Frecuencia relativa (hi):</b> divide cada fi entre el total. Manzana: 10 ÷ 20 = 0,5. Pera: 6 ÷ 20 = 0,3. Uva: 4 ÷ 20 = 0,2.</li>
+<li><b>Frecuencia relativa acumulada (Hi):</b> va sumando las hi hacia abajo: 0,5, luego 0,5 + 0,3 = 0,8, luego 0,8 + 0,2 = 1,0.</li>
+<li><b>Frecuencia porcentual (%):</b> multiplica cada hi por 100. Manzana: 0,5 × 100 = 50 %.</li>
+</ol>
+<div class="box tip"><b>Cómo comprobar tu tabla:</b> la última Fi debe ser igual al total, las hi deben sumar 1 y los porcentajes deben sumar 100 %. Si no da, revisa tus divisiones.</div>
+
+<h3>2. La moda: el que más se repite</h3>
+<div class="box"><b>Moda</b> = el dato que aparece más veces.</div>
+<p><b>Cómo se halla en tu tabla:</b></p>
+<ol><li>Mira solo la columna <b>fi</b>: 29, 19 y 4.</li>
+<li>Busca el número más grande: es <b>29</b>.</li>
+<li>Mira a qué categoría pertenece ese 29: <b>Mujer</b>.</li></ol>
+<div class="box tip"><b>Cuidado:</b> la moda es <b>Mujer</b>, no 29. El 29 solo te dice cuántas veces se repite.</div>
+<p>Con números es igual. En 3, 5, 5, 7, 8 el 5 aparece dos veces, así que la moda es 5. Si dos datos empatan, hay dos modas. Si todos aparecen una sola vez, no hay moda.</p>
+
+<h3>3. La mediana: el dato del centro</h3>
+<div class="box"><b>Mediana</b> = el dato que queda justo en el medio cuando los ordenas de menor a mayor.</div>
+<ol><li><b>Ordena</b> los datos de menor a mayor.</li>
+<li><b>Cuenta</b> cuántos hay.</li>
+<li>Si son <b>impares</b>, la mediana es el del medio. Ejemplo: 9, 3, 7, 5, 1 → ordenados 1, 3, <b>5</b>, 7, 9. La mediana es 5.</li>
+<li>Si son <b>pares</b>, quedan dos en el medio: súmalos y divide entre 2. Ejemplo: 2, 4, 6, 10 → (4 + 6) ÷ 2 = <b>5</b>.</li></ol>
+<div class="box tip"><b>¿Y en la tabla de género?</b> No se puede. “Mujer” y “Hombre” no se pueden ordenar de menor a mayor como los números. Por eso la mediana solo sirve con datos numéricos.</div>
+
+<h3>4. La media: el promedio</h3>
+<div class="box"><b>Media</b> = el valor que tendría cada dato si todos fueran iguales.</div>
+<ol><li><b>Suma</b> todos los datos.</li>
+<li><b>Cuenta</b> cuántos datos hay.</li>
+<li><b>Divide</b> la suma entre la cantidad.</li></ol>
+<p>Ejemplo con edades 10, 12 y 14: suma = 36; hay 3 datos; 36 ÷ 3 = <b>12</b>. La media es 12.</p>
+<div class="box tip">Tampoco se puede hallar la media del género: no se puede sumar “Mujer + Hombre”.</div>
+
+<h3>Resumen</h3>
+<table><tr><th>Medida</th><th>¿Qué busca?</th><th>¿Con qué datos?</th></tr>
+<tr><td>Moda</td><td>El que más se repite</td><td>Palabras y números</td></tr>
+<tr><td>Mediana</td><td>El del centro (ordenados)</td><td>Solo números</td></tr>
+<tr><td>Media</td><td>Suma ÷ cantidad</td><td>Solo números</td></tr></table>
+</section>
+
+<section id="taller" hidden>
+<h2>Taller de práctica</h2>
+<p>Resuelve cada caso con calma. Pulsa el botón para ver un paso a la vez. Intenta pensar el paso antes de abrirlo.</p>
+<div id="wk"></div>
+</section>
+
+<section id="eval" hidden>
+<h2>Evaluación (20 preguntas)</h2>
+<p>Elige una respuesta en cada pregunta. Al final, ve a <b>Resultado</b> para ver tu nota.</p>
+<div id="ev"></div>
+</section>
+
+<section id="ejer" hidden>
+<h2>Ejercicios interactivos (34 actividades)</h2>
+<p>Escribe la respuesta y pulsa <b>Comprobar</b>. Si te trabas, pulsa <b>Pista</b>. Usa coma o punto para decimales.</p>
+<div id="ex"></div>
+</section>
+
+<section id="res" hidden>
+<h2>Resultado</h2>
+<p>Cuando termines la evaluación y los ejercicios, genera tu nota.</p>
+<button class="btn" id="gen">Generar nota</button>
+<div id="out" aria-live="polite"></div>
+</section>
+
+</div></main>
+<script>
+const TAG={tabla:"Leer la tabla",frec:"Frecuencias (fi, Fi, hi, %)",moda:"Moda",mediana:"Mediana",media:"Media"};
+const SUG={
+frec:"Repasa la receta de cada columna: fi se cuenta, Fi suma hacia abajo, hi es fi ÷ total y el % es hi × 100. Para comprobar: las hi suman 1, los % suman 100 y la última Fi es igual al total.",
+tabla:"Repasa qué significa cada columna. Recuerda: fi es cuántas veces se repite, y el total es la suma de todas las fi. Practica explicando la tabla con tus palabras.",
+moda:"Recuerda: la moda es el dato que MÁS se repite, y se escribe con la categoría (Mujer), no con el número de veces. Mira solo la columna fi y busca la más grande.",
+mediana:"Antes de buscar el centro, ordena siempre los datos de menor a mayor. Si son pares, suma los dos del medio y divide entre 2. Tacha datos de afuera hacia adentro para no perderte.",
+media:"Sigue siempre tres pasos: sumar todo, contar cuántos datos hay y dividir. Revisa tus sumas dos veces y comprueba que dividiste entre la cantidad correcta."};
+const W=[
+{t:"Caso 1. Moda de la tabla de género",d:"Mujer 29 · Hombre 19 · Prefiero no decirlo 4",s:["Mira la columna fi: 29, 19 y 4.","El número más grande es 29.","El 29 pertenece a Mujer.","Respuesta: la moda es <b>Mujer</b>."]},
+{t:"Caso 2. Mediana de edades (cantidad impar)",d:"12, 9, 11, 10, 13",s:["Ordena de menor a mayor: 9, 10, 11, 12, 13.","Cuenta: son 5 datos (impar).","El del medio es el tercero: 11.","Respuesta: la mediana es <b>11</b>."]},
+{t:"Caso 3. Media de notas",d:"4, 3, 5, 4, 4",s:["Suma todo: 4 + 3 + 5 + 4 + 4 = 20.","Cuenta los datos: son 5.","Divide: 20 ÷ 5 = 4.","Respuesta: la media es <b>4</b>."]},
+{t:"Caso 4. Mediana con cantidad par",d:"6, 2, 8, 4",s:["Ordena: 2, 4, 6, 8.","Son 4 datos (par), así que hay dos en el medio: 4 y 6.","Súmalos: 4 + 6 = 10.","Divide entre 2: 10 ÷ 2 = 5.","Respuesta: la mediana es <b>5</b>."]},
+{t:"Caso 5. Moda con números",d:"2, 3, 3, 4, 5, 3, 2",s:["Cuenta cuántas veces sale cada uno: 2 sale 2 veces, 3 sale 3 veces, 4 sale 1 vez, 5 sale 1 vez.","El que más sale es el 3.","Respuesta: la moda es <b>3</b>."]},
+{t:"Caso 6. Completar una tabla de frecuencias",d:"Mascotas: Perro 15, Gato 9, Pez 6",s:["Total: 15 + 9 + 6 = 30.","Fi (acumulada): Perro 15; Gato 15 + 9 = 24; Pez 24 + 6 = 30.","hi (relativa) = fi ÷ 30: Perro 0,5; Gato 0,3; Pez 0,2.","% (porcentual) = hi × 100: Perro 50 %; Gato 30 %; Pez 20 %.","Comprobación: la última Fi es 30 (el total), las hi suman 1 y los % suman 100."]}];
+// [tag, pregunta, opciones, índice correcto]
+const E=[
+["tabla","En la tabla, ¿qué significa fi?",["Cuántas veces se repite cada categoría","El porcentaje","El total de la encuesta","El nombre de la categoría"],0],
+["tabla","¿Cuántas personas respondieron en total?",["29","52","48","100"],1],
+["tabla","¿Cuántas personas eligieron “Hombre”?",["19","29","37","4"],0],
+["tabla","El 56 % de “Mujer” se calcula así:",["29 ÷ 52 × 100","29 + 52","52 ÷ 29","29 − 19"],0],
+["moda","La moda es:",["El dato que más se repite","El dato del medio","El resultado de sumar y dividir","El dato menor"],0],
+["moda","¿Cuál es la moda de la tabla de género?",["Mujer","Hombre","Prefiero no decirlo","No tiene moda"],0],
+["moda","¿Cuál es la moda de 3, 5, 5, 7, 8?",["3","5","7","8"],1],
+["moda","¿Puede haber dos modas?",["Sí, si dos datos empatan como los más repetidos","No, nunca","Solo con números negativos","Solo en tablas"],0],
+["moda","En 2, 4, 6, 8 cada dato sale una vez. Entonces:",["No hay moda","La moda es 2","La moda es 8","La moda es 5"],0],
+["moda","¿Se puede hallar la moda de colores favoritos?",["Sí, es el color que más se repite","No, solo con números","Solo con decimales","Solo con porcentajes"],0],
+["mediana","La mediana es:",["El dato del centro al ordenar de menor a mayor","El dato más repetido","La suma de todos","El dato mayor"],0],
+["mediana","¿Cuál es el primer paso para hallar la mediana?",["Ordenar los datos de menor a mayor","Sumar todos los datos","Buscar el más repetido","Multiplicar los datos"],0],
+["mediana","Mediana de 9, 3, 7, 5, 1:",["5","7","3","9"],0],
+["mediana","Mediana de 2, 4, 6, 10:",["4","5","6","10"],1],
+["mediana","¿Se puede hallar la mediana del género?",["No, porque las categorías no se ordenan como números","Sí, es Hombre","Sí, es Mujer","Sí, es 52"],0],
+["media","La media (promedio) se halla:",["Sumando todo y dividiendo entre la cantidad de datos","Con el dato más repetido","Con el dato del centro","Restando el mayor menos el menor"],0],
+["media","Media de 4, 6, 8:",["6","18","8","4"],0],
+["media","Media de 10, 20, 30, 40:",["25","100","20","30"],0],
+["media","Si la suma de 5 datos es 40, la media es:",["8","5","40","200"],0],
+["media","Datos: 1, 2, 2, 3, 7. ¿Cuánto valen la media y la mediana?",["Media 3 y mediana 2","Media 2 y mediana 3","Ambas 3","Ambas 2"],0]];
+// [tag, enunciado, respuesta, pista]
+const X=[
+["tabla","¿Cuál es el total de personas? (suma las fi: 29 + 19 + 4)","52","Suma 29 + 19 y luego súmale 4."],
+["tabla","¿Cuántas mujeres hay? (mira la columna fi)","29","Busca la fila Mujer y lee fi."],
+["moda","¿Cuál es la moda del género? (escribe la categoría)","mujer","Busca la fi más grande y mira su categoría."],
+["tabla","¿Cuántas personas eligieron “Prefiero no decirlo”?","4","Lee fi en esa fila."],
+["tabla","¿Cuántas personas son mujeres u hombres? (29 + 19)","48","Suma solo las dos primeras fi."],
+["moda","Moda de: 2, 3, 3, 4, 5","3","¿Qué número sale más veces?"],
+["moda","Moda de: 7, 1, 7, 9, 1, 7","7","Cuenta cuántas veces sale cada número."],
+["moda","Moda de: 10, 12, 12, 15, 15, 15, 18","15","El 15 sale tres veces. ¿Alguno sale más?"],
+["moda","Moda de: rojo, azul, azul, verde, rojo, azul","azul","Cuenta cada color."],
+["mediana","Mediana de: 8, 2, 6, 4, 10","6","Ordena: 2, 4, 6, 8, 10. ¿Cuál queda en el centro?"],
+["mediana","Mediana de: 12, 5, 9","9","Ordena: 5, 9, 12."],
+["mediana","Mediana de: 3, 7, 9, 11","8","Son 4 datos. Suma 7 + 9 y divide entre 2."],
+["mediana","Mediana de: 1, 2, 3, 4, 5, 6","3.5","Suma 3 + 4 y divide entre 2."],
+["mediana","Mediana de: 20, 10, 40, 30, 50, 60","35","Ordena primero. Los del medio son 30 y 40."],
+["media","Media de: 2, 4, 6","4","Suma = 12. Divide entre 3."],
+["media","Media de: 5, 7, 9, 11","8","Suma = 32. Divide entre 4."],
+["media","Media de: 12, 18","15","Suma = 30. Divide entre 2."],
+["media","Media de: 1, 2, 3, 4, 5, 6, 7, 8, 9","5","Suma = 45. Divide entre 9."],
+["media","Las notas de Ana son 3, 4, 4 y 5. ¿Cuál es su nota media?","4","Suma = 16. Divide entre 4."],
+["media","La suma de 6 datos es 30. ¿Cuál es la media?","5","Divide 30 entre 6."],
+["frec","Frutas favoritas: Manzana 10, Pera 6, Uva 4. ¿Cuál es el total de datos?","20","Suma las tres fi."],
+["frec","Frutas (Manzana 10, Pera 6, Uva 4, total 20). Frecuencia relativa hi de Manzana (fi ÷ total)","0.5","Calcula 10 ÷ 20."],
+["frec","Frutas. Frecuencia relativa hi de Pera","0.3","Calcula 6 ÷ 20."],
+["frec","Frutas. Frecuencia acumulada Fi de Pera (suma las fi de Manzana y Pera)","16","10 + 6."],
+["frec","Frutas. Frecuencia acumulada Fi de Uva","20","Suma 16 + 4. La última Fi siempre es el total."],
+["frec","Frutas. Frecuencia porcentual de Manzana (hi × 100)","50","Multiplica 0,5 por 100."],
+["frec","Frutas. Frecuencia porcentual de Uva (4 ÷ 20 × 100)","20","4 ÷ 20 = 0,2. Luego × 100."],
+["frec","Mascotas: Perro 15, Gato 9, Pez 6. ¿Cuál es el total de datos?","30","Suma las tres fi."],
+["frec","Mascotas. Frecuencia relativa hi de Gato (9 ÷ 30)","0.3","9 ÷ 30 = 0,3."],
+["frec","Mascotas. Frecuencia acumulada Fi de Gato (suma Perro y Gato)","24","15 + 9."],
+["frec","Mascotas. Frecuencia porcentual de Perro","50","15 ÷ 30 = 0,5. Luego × 100."],
+["frec","Tabla de género (total 52). Frecuencia relativa hi de Hombre. Redondea a 2 decimales","0.37","19 ÷ 52 = 0,365... Redondea."],
+["frec","Tabla de género. Frecuencia acumulada Fi de Hombre (29 + 19)","48","Suma las fi de Mujer y Hombre."],
+["frec","Tabla de género. Frecuencia porcentual de Mujer, como número entero (29 ÷ 52 × 100)","56","29 ÷ 52 = 0,56. Luego × 100."]];
+
+const $=id=>document.getElementById(id);
+const nav=$("nav");
+[["teoria","Teoría"],["taller","Taller"],["eval","Evaluación"],["ejer","Ejercicios"],["res","Resultado"]].forEach(([id,n])=>{
+ const b=document.createElement("button");b.textContent=n;b.dataset.id=id;
+ b.onclick=()=>{document.querySelectorAll("section").forEach(s=>s.hidden=s.id!==id);
+  nav.querySelectorAll("button").forEach(x=>x.classList.toggle("on",x===b));scrollTo(0,0)};nav.appendChild(b)});
+nav.firstChild.click();
+
+$("wk").innerHTML=W.map((c,i)=>`<div class="q"><h3>${c.t}</h3><p>Datos: <b>${c.d}</b></p><ol>${c.s.map(s=>`<li class="step">${s}</li>`).join("")}</ol><button class="btn alt" data-w="${i}">Mostrar siguiente paso</button></div>`).join("");
+document.querySelectorAll("[data-w]").forEach(b=>b.onclick=()=>{
+ const hid=b.parentNode.querySelectorAll(".step:not(.show)");
+ if(hid.length)hid[0].classList.add("show");
+ if(hid.length<=1)b.style.display="none"});
+
+$("ev").innerHTML=E.map((q,i)=>`<fieldset class="q"><legend>${i+1}. ${q[1]}</legend>${q[2].map((o,j)=>`<label><input type="radio" name="e${i}" value="${j}"> ${o}</label>`).join("")}</fieldset>`).join("");
+
+const xs=[];
+$("ex").innerHTML=X.map((q,i)=>`<div class="q"><b>${i+1}.</b> ${q[1]}<div style="margin-top:8px"><input type="text" id="x${i}" aria-label="Respuesta ${i+1}" autocomplete="off"> <button class="btn" data-c="${i}">Comprobar</button> <button class="btn alt" data-h="${i}">Pista</button><span class="fb" id="f${i}"></span></div><p class="hint" id="h${i}" hidden>Pista: ${q[3]}</p></div>`).join("");
+const norm=s=>s.trim().toLowerCase().replace("%","").trim().replace(",",".");
+const same=(a,b)=>{a=norm(a);b=norm(b);return a!==""&&(a===b||(!isNaN(a)&&!isNaN(b)&&+a===+b))};
+document.querySelectorAll("[data-c]").forEach(b=>b.onclick=()=>{
+ const i=+b.dataset.c,v=$("x"+i).value,f=$("f"+i);
+ if(!v.trim()){f.textContent="Escribe una respuesta.";f.className="fb no";return}
+ const ok=same(v,X[i][2]);xs[i]=ok;
+ f.textContent=ok?"¡Correcto!":"Todavía no. Revisa la pista e inténtalo otra vez.";f.className="fb "+(ok?"ok":"no")});
+document.querySelectorAll("[data-h]").forEach(b=>b.onclick=()=>$("h"+b.dataset.h).hidden=false);
+
+$("gen").onclick=()=>{
+ const name=$("nombre").value.trim(),out=$("out");
+ if(!name){out.innerHTML='<div class="box tip">Escribe tu nombre arriba antes de generar la nota.</div>';$("nombre").focus();return}
+ const st={};Object.keys(TAG).forEach(k=>st[k]={ok:0,n:0});
+ let eo=0,ee=[],blank=0;
+ E.forEach((q,i)=>{const s=document.querySelector(`input[name=e${i}]:checked`);const ok=s&&+s.value===q[3];
+  st[q[0]].n++;if(ok){eo++;st[q[0]].ok++}else{ee.push([i,q]);if(!s)blank++}});
+ let xo=0;X.forEach((q,i)=>{st[q[0]].n++;if(xs[i]){xo++;st[q[0]].ok++}else if(xs[i]===undefined)blank++});
+ const nota=((eo/E.length*.5+xo/X.length*.5)*5).toFixed(1).replace(".",",");
+ const weak=Object.keys(st).filter(k=>st[k].ok/st[k].n<.7);
+ let h=`<div class="box"><p>Estudiante: <b>${name.replace(/</g,"&lt;")}</b></p><div class="big">${nota} <small style="font-size:1.2rem">de 5,0</small></div>
+ <p>Evaluación: ${eo} de ${E.length} correctas · Ejercicios: ${xo} de ${X.length} correctos</p>${blank?`<p>Dejaste ${blank} sin responder o sin comprobar. Cuentan como no logradas.</p>`:""}</div>
+ <h3>Cómo te fue por tema</h3>`+Object.keys(st).map(k=>{const p=Math.round(st[k].ok/st[k].n*100);return `<p>${TAG[k]}: <b>${p} %</b> (${st[k].ok} de ${st[k].n})</p><div class="bar"><i style="width:${p}%"></i></div>`}).join("");
+ h+="<h3>Dificultades observadas y cómo superarlas</h3>";
+ h+=weak.length?"<ul>"+weak.map(k=>`<li><b>${TAG[k]}:</b> ${SUG[k]}</li>`).join("")+"</ul>":'<div class="box">No se ven dificultades importantes. Para seguir creciendo, inventa una tabla con tus compañeros y halla sus tres medidas.</div>';
+ if(ee.length)h+="<h3>Preguntas de la evaluación para repasar</h3><ul>"+ee.map(([i,q])=>`<li>${i+1}. ${q[1]}<br>Respuesta correcta: <b>${q[2][q[3]]}</b></li>`).join("")+"</ul>";
+ h+='<p><button class="btn alt" onclick="print()">Imprimir o guardar en PDF</button></p>';
+ out.innerHTML=h};
+</script></body></html>
